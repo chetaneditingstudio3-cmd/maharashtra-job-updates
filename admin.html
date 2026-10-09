@@ -1,0 +1,113 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin Dashboard | Maharashtra Job Updates</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fb;color:#17233d}
+.layout{display:flex;min-height:100vh}
+aside{width:235px;background:#123b79;color:white;padding:24px 16px}
+.brand{font-size:20px;font-weight:bold;margin-bottom:32px}
+aside a{display:block;padding:13px;color:#e2eaff;text-decoration:none;border-radius:8px;margin:6px 0}
+aside a:hover,aside a.active{background:#24559a}
+main{flex:1;padding:28px;min-width:0}
+.top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+h1{margin:0;font-size:27px}
+.muted{color:#6b7890}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:16px;margin:25px 0}
+.card,.panel{background:white;padding:20px;border-radius:12px;border:1px solid #e2e8f2;box-shadow:0 4px 12px #123b7908}
+.number{font-size:30px;font-weight:bold;color:#1754a6;margin-top:12px}
+button{border:0;border-radius:7px;padding:11px 15px;cursor:pointer;font-weight:bold;background:#1754a6;color:white}
+button.secondary{background:#e7efff;color:#17488c}
+input,select{width:100%;padding:11px;margin:6px 0 14px;border:1px solid #cdd7e6;border-radius:7px;font-size:15px}
+.formgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+table{width:100%;border-collapse:collapse;margin-top:12px}
+th,td{text-align:left;padding:12px 8px;border-bottom:1px solid #e8edf5}
+th{color:#60708a;font-size:13px}
+.tablewrap{overflow-x:auto}
+.status{color:#137547;background:#e2f7eb;padding:5px 8px;border-radius:20px;font-size:12px}
+.notice{background:#fff5d9;padding:13px;border-radius:8px;line-height:1.5;margin:20px 0}
+@media(max-width:650px){.layout{display:block}aside{width:100%;padding:14px}aside .brand{margin-bottom:8px}aside a{display:inline-block;padding:9px}main{padding:16px}.formgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="layout">
+<aside>
+<div class="brand">MJ Updates</div>
+<a class="active" href="#dashboard">▦ Dashboard</a>
+<a href="#jobs">▤ Manage Jobs</a>
+<a href="#add">＋ Add New Job</a>
+<a href="index.html">↗ View Website</a>
+</aside>
+<main>
+<div class="top">
+<div><h1>Admin Dashboard</h1><p class="muted">Maharashtra Job Updates · Management</p></div>
+<button onclick="document.getElementById('add').scrollIntoView({behavior:'smooth'})">+ Add New Job</button>
+</div>
+<div class="notice"><strong>Demo mode:</strong> हा सुरुवातीचा dashboard आहे. येथे जोडलेली माहिती या ब्राउझरमध्येच साठवली जाते. सुरक्षित login किंवा इतर वापरकर्त्यांना updates दिसण्यासाठी backend आवश्यक आहे. खऱ्या भरतीची माहिती अधिकृत जाहिरात तपासूनच प्रकाशित करा.</div>
+<section id="dashboard" class="cards">
+<div class="card">Total Jobs<div class="number" id="total">0</div></div>
+<div class="card">Published Jobs<div class="number" id="published">0</div></div>
+<div class="card">Draft Jobs<div class="number" id="draft">0</div></div>
+</section>
+<section id="add" class="panel">
+<h2>Add New Job</h2>
+<p class="muted">भरतीची माहिती भरा</p>
+<form id="jobForm">
+<div class="formgrid">
+<div><label>Job Title / पदाचे नाव</label><input id="title" required placeholder="उदा. Clerk Recruitment"></div>
+<div><label>Department / विभाग</label><input id="department" required placeholder="उदा. Maharashtra Govt"></div>
+<div><label>Category / प्रकार</label><select id="category"><option>Maharashtra</option><option>Central Government</option><option>Police</option><option>Banking</option><option>Other</option></select></div>
+<div><label>Last Date / शेवटची तारीख</label><input id="date" type="date"></div>
+<div><label>Eligibility / पात्रता</label><input id="eligibility" placeholder="उदा. 12th Pass"></div>
+<div><label>Official Link / अधिकृत लिंक</label><input id="url" type="url" placeholder="https://..." required></div>
+</div>
+<button type="submit">Save Job</button>
+<button type="reset" class="secondary">Clear Form</button>
+</form>
+</section>
+<section id="jobs" class="panel" style="margin-top:22px">
+<h2>Manage Jobs</h2>
+<input id="filter" placeholder="Search jobs..." oninput="render()">
+<div class="tablewrap">
+<table><thead><tr><th>Job Title</th><th>Department</th><th>Last Date</th><th>Official Link</th><th>Action</th></tr></thead>
+<tbody id="jobRows"><tr><td colspan="5">No jobs added yet.</td></tr></tbody></table>
+</div>
+</section>
+</main>
+</div>
+<script>
+const key='mju_demo_jobs_v1';
+let jobs=[];
+try{jobs=JSON.parse(localStorage.getItem(key)||'[]')}catch(e){jobs=[]}
+function save(){localStorage.setItem(key,JSON.stringify(jobs));render()}
+function render(){
+ const q=document.getElementById('filter').value.toLowerCase();
+ document.getElementById('total').textContent=jobs.length;
+ document.getElementById('published').textContent=jobs.length;
+ document.getElementById('draft').textContent=0;
+ const filtered=jobs.filter(j=>(j.title+' '+j.department).toLowerCase().includes(q));
+ const rows=document.getElementById('jobRows');
+ if(!filtered.length){rows.innerHTML='<tr><td colspan="5">No jobs added yet.</td></tr>';return}
+ rows.innerHTML='';
+ filtered.forEach(j=>{
+ const tr=document.createElement('tr');
+ [j.title,j.department,j.date||'Not set'].forEach(v=>{const td=document.createElement('td');td.textContent=v;tr.appendChild(td)});
+ const linkCell=document.createElement('td');const a=document.createElement('a');a.href=j.url;a.textContent='Open';a.target='_blank';a.rel='noopener noreferrer';linkCell.appendChild(a);tr.appendChild(linkCell);
+ const action=document.createElement('td');const del=document.createElement('button');del.textContent='Delete';del.className='secondary';del.onclick=()=>{if(confirm('Delete this job?')){jobs=jobs.filter(x=>x.id!==j.id);save()}};action.appendChild(del);tr.appendChild(action);rows.appendChild(tr)
+ })
+}
+document.getElementById('jobForm').addEventListener('submit',e=>{
+ e.preventDefault();
+ const url=document.getElementById('url').value.trim();
+ if(!/^https?:\/\//i.test(url)){alert('Enter a valid official URL beginning with https://');return}
+ jobs.push({id:Date.now(),title:document.getElementById('title').value.trim(),department:document.getElementById('department').value.trim(),category:document.getElementById('category').value,date:document.getElementById('date').value,eligibility:document.getElementById('eligibility').value.trim(),url});
+ save();e.target.reset();alert('Saved in this browser only. It is not yet published on the public website.')
+});
+render();
+</script>
+</body>
+</html>
