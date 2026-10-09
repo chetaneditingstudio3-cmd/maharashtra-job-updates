@@ -1,0 +1,121 @@
+
+<!DOCTYPE html>
+<html lang="mr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="महाराष्ट्र आणि भारतातील सरकारी नोकरी भरती, परीक्षा, निकाल आणि प्रवेशपत्रांची माहिती.">
+<title>Maharashtra Job Updates | सरकारी भरती</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f3f6fc;color:#17233d}
+header{background:#123b79;color:white;padding:25px 16px;text-align:center}
+header h1{margin:0 0 10px;font-size:clamp(24px,5vw,36px)}
+header p{margin:0;color:#e0eaff}
+nav{background:#fff;padding:14px;text-align:center;box-shadow:0 2px 8px #0001}
+nav a{color:#16458a;text-decoration:none;font-weight:bold;margin:8px;display:inline-block}
+.container{max-width:1050px;margin:auto;padding:20px}
+.search{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0 20px}
+input,select{padding:13px;border:1px solid #ccd5e4;border-radius:8px;font-size:16px;background:white}
+input{flex:1;min-width:200px}
+h2{color:#123b79}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:16px}
+.card{background:white;border-radius:12px;padding:18px;box-shadow:0 4px 15px #17376512;border:1px solid #e4eaf5}
+.card h3{margin-top:0;color:#153e7c}
+.tag{display:inline-block;background:#e8f0ff;color:#17488c;padding:5px 9px;border-radius:20px;font-size:12px}
+.btn{display:inline-block;background:#1754a6;color:white;padding:10px 14px;border-radius:7px;text-decoration:none;margin-top:8px}
+.notice{background:#fff5d9;padding:13px;border-radius:8px;line-height:1.6}
+.links a{display:inline-block;margin:7px;padding:10px;background:white;border:1px solid #dce4f1;border-radius:7px;color:#17488c;text-decoration:none}
+footer{text-align:center;padding:25px;background:#102d58;color:white;margin-top:30px}
+footer a{color:#fff}
+</style>
+</head>
+<body>
+<header>
+<h1>महाराष्ट्र सरकारी भरती</h1>
+<p>Maharashtra Job Updates | Jobs • Exams • Results</p>
+</header>
+<nav>
+<a href="#jobs">Latest Jobs</a>
+<a href="#resources">Exam Resources</a>
+<a href="#official">Official Websites</a>
+<a href="#about">About Us</a>
+</nav>
+<main class="container">
+<div class="notice"><strong>महत्त्वाची सूचना:</strong> ही नवीन सरकारी भरती माहिती वेबसाइट आहे. खालील नमुना नोकरी कार्डे फक्त डिझाइन दाखवण्यासाठी आहेत; ती सध्याच्या खऱ्या जाहिराती नाहीत. अर्ज करण्यापूर्वी अधिकृत वेबसाइटवरील जाहिरात तपासा.</div>
+<h2 id="jobs">🔎 सरकारी भरती शोधा</h2>
+<div class="search">
+<input id="search" placeholder="भरती, पद किंवा विभाग शोधा..." oninput="filterJobs()">
+<select id="category" onchange="filterJobs()">
+<option value="all">सर्व विभाग</option>
+<option value="maharashtra">महाराष्ट्र</option>
+<option value="central">केंद्र सरकार</option>
+<option value="police">पोलीस</option>
+</select>
+</div>
+<div class="grid" id="jobGrid">
+<article class="card" data-category="maharashtra">
+<span class="tag">महाराष्ट्र</span>
+<h3>नवीन भरतीची माहिती येथे</h3>
+<p>अधिकृत जाहिरात, पात्रता आणि अर्जाची तारीख तपासून माहिती जोडा.</p>
+<p><strong>अर्जाची शेवटची तारीख:</strong> अधिकृत जाहिरात तपासा</p>
+<a class="btn" href="https://www.maharashtra.gov.in/" target="_blank" rel="noopener">अधिकृत वेबसाइट</a>
+</article>
+<article class="card" data-category="central">
+<span class="tag">केंद्र सरकार</span>
+<h3>केंद्रीय भरती अपडेट्स</h3>
+<p>पदांची संख्या, पात्रता आणि अर्जाच्या तारखा अधिकृत नोटिफिकेशनवरून भरा.</p>
+<p><strong>शेवटची तारीख:</strong> अधिकृत नोटिफिकेशन तपासा</p>
+<a class="btn" href="https://ssc.gov.in/" target="_blank" rel="noopener">SSC अधिकृत वेबसाइट</a>
+</article>
+<article class="card" data-category="police">
+<span class="tag">पोलीस भरती</span>
+<h3>पोलीस भरती अपडेट्स</h3>
+<p>पोलीस भरतीच्या जाहिराती व पात्रतेसाठी अधिकृत पोर्टल तपासा.</p>
+<p><strong>शेवटची तारीख:</strong> अधिकृत पोर्टल तपासा</p>
+<a class="btn" href="https://www.mahapolice.gov.in/" target="_blank" rel="noopener">महाराष्ट्र पोलीस</a>
+</article>
+</div>
+<h2 id="resources">📚 परीक्षा तयारी</h2>
+<div class="grid">
+<div class="card"><h3>अभ्यासक्रम (Syllabus)</h3><p>परीक्षेनुसार अधिकृत अभ्यासक्रमाची माहिती येथे जोडा.</p></div>
+<div class="card"><h3>मागील प्रश्नपत्रिका</h3><p>उपलब्ध प्रश्नपत्रिका व अधिकृत उत्तरतालिका यांच्या लिंक येथे जोडा.</p></div>
+<div class="card"><h3>निकाल व प्रवेशपत्र</h3><p>निकाल आणि Admit Card साठी संबंधित विभागाची अधिकृत वेबसाइट तपासा.</p></div>
+</div>
+<h2 id="official">🌐 महत्त्वाच्या अधिकृत वेबसाइट्स</h2>
+<div class="links">
+<a href="https://mpsc.gov.in/" target="_blank" rel="noopener">MPSC</a>
+<a href="https://www.mahapolice.gov.in/" target="_blank" rel="noopener">Maharashtra Police</a>
+<a href="https://www.mahaswayam.gov.in/" target="_blank" rel="noopener">Mahaswayam</a>
+<a href="https://upsc.gov.in/" target="_blank" rel="noopener">UPSC</a>
+<a href="https://ssc.gov.in/" target="_blank" rel="noopener">SSC</a>
+<a href="https://www.ibps.in/" target="_blank" rel="noopener">IBPS</a>
+</div>
+<h2>📢 जाहिराती</h2>
+<div class="card"><p>जाहिरातींसाठी जागा — भविष्यात पात्र झाल्यावर जाहिरात नेटवर्कचा कोड येथे जोडता येईल.</p></div>
+<h2 id="about">आमच्याबद्दल</h2>
+<div class="card">
+<p>या वेबसाइटचा उद्देश सरकारी नोकरी, परीक्षा, अभ्यासक्रम आणि निकाल यांची माहिती एका ठिकाणी उपलब्ध करून देणे आहे.</p>
+<p><strong>Disclaimer:</strong> ही स्वतंत्र माहिती वेबसाइट आहे; कोणत्याही सरकारी विभागाची अधिकृत वेबसाइट नाही. अर्जापूर्वी अधिकृत अधिसूचना तपासा.</p>
+<p><a href="privacy.html">Privacy Policy</a> · <a href="disclaimer.html">Disclaimer</a></p>
+</div>
+</main>
+<footer>
+<p>© <span id="year"></span> Maharashtra Job Updates</p>
+<p>माहिती तपासा • अधिकृत जाहिरातींनाच प्राधान्य द्या</p>
+</footer>
+<script>
+function filterJobs(){
+ const q=document.getElementById('search').value.toLowerCase();
+ const cat=document.getElementById('category').value;
+ document.querySelectorAll('#jobGrid .card').forEach(card=>{
+  const text=card.innerText.toLowerCase();
+  const matchText=text.includes(q);
+  const matchCat=cat==='all'||card.dataset.category===cat;
+  card.style.display=matchText&&matchCat?'block':'none';
+ });
+}
+document.getElementById('year').textContent=new Date().getFullYear();
+</script>
+</body>
+</html>
